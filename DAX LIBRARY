@@ -1,150 +1,148 @@
 // Libreria misure DAX
 // Paolo Falcone, Softing Consulting, Dic 2024
-// Ultima revisione: Dic 2024
+// Ultima revisione: Giu 2025
+---------------------------------------------------------------------------------------------------------------------------------------------------
 
-
-1. Total Sales
-Traduzione Nome Misura: Vendite Totali
+✅ 1. Total Sales
+Nome Misura: Vendite Totali
 Espressione DAX:
 Total Sales = SUM('SalesTable'[salesAmount])
-Descrizione: Calcola il totale delle vendite sommando i valori della colonna salesAmount.
+👉Descrizione: Calcola il totale delle vendite sommando i valori della colonna salesAmount.
 
-2. Total Cost
-Traduzione Nome Misura: Costi Totali
+✅ 2. Total Cost
+Nome Misura: Costi Totali
 Espressione DAX:
 Total Cost = SUM('SalesTable'[cost])
-Descrizione: Calcola il costo totale sommando i valori della colonna cost.
+👉Descrizione: Calcola il costo totale sommando i valori della colonna cost.
 
-3. Profit
-Traduzione Nome Misura: Profitto
+✅ 3. Profit
+Nome Misura: Profitto
 Espressione DAX:
 Profit = [Total Sales] - [Total Cost]
-Descrizione: Calcola il profitto sottraendo i costi totali dalle vendite totali.
+👉Descrizione: Calcola il profitto sottraendo i costi totali dalle vendite totali.
 
-4. Profit Margin
-Traduzione Nome Misura: Margine di Profitto
+✅ 4. Profit Margin
+Nome Misura: Margine di Profitto
 Espressione DAX:
 Profit Margin = DIVIDE([Profit], [Total Sales])
-Descrizione: Calcola il margine di profitto dividendo il profitto per le vendite totali.
+👉Descrizione: Calcola il margine di profitto dividendo il profitto per le vendite totali.
 
-5. Transactions
-Traduzione Nome Misura: Transazioni
+✅ 5. Transactions
+Nome Misura: Transazioni
 Espressione DAX:
 Transactions = COUNTROWS('SalesTable')
-Descrizione: Conta il numero di transazioni come il totale delle righe nella tabella specificata.
+👉Descrizione: Conta il numero di transazioni come il totale delle righe nella tabella specificata.
 
-6. Related Table Count
-Traduzione Nome Misura: Conteggio Tabelle Correlate
+✅ 6. Related Table Count
+Nome Misura: Conteggio Tabelle Correlate
 Espressione DAX:
 Related Table Count = COUNTROWS(RELATEDTABLE('SalesTable'))
-Descrizione: Conta il numero di righe in una tabella correlata.
+👉Descrizione: Conta il numero di righe in una tabella correlata.
 
-7. MTD Sales (Direct Query)
-Traduzione Nome Misura: Vendite MTD (Query Diretta)
+✅ 7. MTD Sales (Direct Query)
+Nome Misura: Vendite MTD (Query Diretta)
 Espressione DAX:
 MTD Sales = TOTALMTD([Total Sales], 'CalendarTable'[Date])
-Descrizione: Calcola le vendite cumulative per il mese corrente fino alla data selezionata.
+👉Descrizione: Calcola le vendite cumulative per il mese corrente fino alla data selezionata.
 
-8. MTD Sales (Custom)
-Traduzione Nome Misura: Vendite MTD (Personalizzate)
+✅ 8. MTD Sales (Custom)
+Nome Misura: Vendite MTD (Personalizzate)
 Espressione DAX:
 MTD Sales = CALCULATE([Total Sales], ALL('CalendarTable'), 'CalendarTable'[DateYear] = MAX('CalendarTable'[DateYear]), ...)
-Descrizione: Calcola le vendite cumulative per il mese corrente con una logica personalizzata.
+👉Descrizione: Calcola le vendite cumulative per il mese corrente con una logica personalizzata.
 
-9. YTD Sales (Direct Query)
+✅ 9. YTD Sales (Direct Query)
 Traduzione Nome Misura: Vendite YTD (Query Diretta)
 Espressione DAX:
 YTD Sales = TOTALYTD([Total Sales], 'CalendarTable'[Date])
 Descrizione: Calcola le vendite cumulative per l'anno corrente fino alla data selezionata.
 
-10. YTD Sales (Fiscal Calendar)
-Traduzione Nome Misura: Vendite YTD (Anno Fiscale)
+✅ 10. YTD Sales (Fiscal Calendar)
+Nome Misura: Vendite YTD (Anno Fiscale)
 Espressione DAX:
 YTD Sales = TOTALYTD([Total Sales], 'CalendarTable'[Date], "05/31")
-Descrizione: Calcola le vendite cumulative per l'anno fiscale, specificando la data di fine anno fiscale.
+👉Descrizione: Calcola le vendite cumulative per l'anno fiscale, specificando la data di fine anno fiscale.
 
-11. YTD Sales (Custom)
-Traduzione Nome Misura: Vendite YTD (Personalizzate)
+✅ 11. YTD Sales (Custom)
+Nome Misura: Vendite YTD (Personalizzate)
 Espressione DAX:
 YTD Sales = CALCULATE([Total Sales], ALL('CalendarTable'), 'CalendarTable'[DateYear] = MAX('CalendarTable'[DateYear]), ...)
-Descrizione: Calcola le vendite cumulative per l'anno corrente con una logica personalizzata.
+👉Descrizione: Calcola le vendite cumulative per l'anno corrente con una logica personalizzata.
 
-12. Prior Year Profit
-Traduzione Nome Misura: Profitto Anno Precedente
+✅ 12. Prior Year Profit
+Nome Misura: Profitto Anno Precedente
 Espressione DAX:
 Prior Year Profit = CALCULATE([Profit], SAMEPERIODLASTYEAR('CalendarTable'[Date]))
-Descrizione: Calcola il profitto dell'anno precedente per lo stesso periodo di tempo.
+👉Descrizione: Calcola il profitto dell'anno precedente per lo stesso periodo di tempo.
 
-13. Prior Year Profit (Custom)
-Traduzione Nome Misura: Profitto Anno Precedente (Custom)
+✅ 13. Prior Year Profit (Custom)
+Nome Misura: Profitto Anno Precedente (Custom)
 Espressione DAX:
 Prior Year Profit = CALCULATE([Profit], FILTER(ALL('CalendarTable'), 'CalendarTable'[Year] = MAX('CalendarTable'[Year]) - 1))
-Descrizione: Calcola il profitto dell'anno precedente con una logica personalizzata.
+👉Descrizione: Calcola il profitto dell'anno precedente con una logica personalizzata.
 
-14. YOY Profit
-Traduzione Nome Misura: Variazione Profitto Anno su Anno
+✅ 14. YOY Profit
+Nome Misura: Variazione Profitto Anno su Anno
 Espressione DAX:
 YOY Profit = [Profit] - [Prior Year Profit]
-Descrizione: Calcola la variazione anno su anno (YOY) del profitto sottraendo il profitto dell'anno precedente.
+👉Descrizione: Calcola la variazione anno su anno (YOY) del profitto sottraendo il profitto dell'anno precedente.
 
-15. Last YTD Sales
-Traduzione Nome Misura: Vendite YTD Anno Precedente
+✅ 15. Last YTD Sales
+Nome Misura: Vendite YTD Anno Precedente
 Espressione DAX:
 Last YTD Sales = CALCULATE([YTD Sales], SAMEPERIODLASTYEAR('CalendarTable'[Date]))
-Descrizione: Calcola le vendite cumulative dell'anno precedente fino alla data selezionata.
+👉Descrizione: Calcola le vendite cumulative dell'anno precedente fino alla data selezionata.
 
-16. Total Sales All Countries
-Traduzione Nome Misura: Vendite Totali per Tutti i Paesi
+✅ 16. Total Sales All Countries
+Nome Misura: Vendite Totali per Tutti i Paesi
 Espressione DAX:
 Total Sales All Countries = CALCULATE([Total Sales], ALL('GeographyTable'[Country]))
-Descrizione: Calcola le vendite totali ignorando eventuali filtri sui paesi.
+👉Descrizione: Calcola le vendite totali ignorando eventuali filtri sui paesi.
 
-17. Percent of Total
-Traduzione Nome Misura: Percentuale sul Totale
+✅ 17. Percent of Total
+Nome Misura: Percentuale sul Totale
 Espressione DAX:
 Percent of Total = DIVIDE([Total Sales], [Total Sales All Countries])
-Descrizione: Calcola la percentuale delle vendite di un'entità rispetto al totale di tutti i paesi.
+👉Descrizione: Calcola la percentuale delle vendite di un'entità rispetto al totale di tutti i paesi.
 
-18. 12 Months Sales Rolling
-Traduzione Nome Misura: Vendite Rolling su 12 Mesi
+✅ 18. 12 Months Sales Rolling
+Nome Misura: Vendite Rolling su 12 Mesi
 Espressione DAX:
-
 12 Months Sales Rolling = CALCULATE([Total Sales], 
 DATESBETWEEN('CalendarTable'[Date], NEXTDAY(SAMEPERIODLASTYEAR(LASTDATE('CalendarTable'[Date]))), LASTDATE('CalendarTable'[Date])))
-Descrizione: Calcola il profitto degli ultimi 12 mesi in modo dinamico rispetto alla data selezionata.
+👉Descrizione: Calcola il profitto degli ultimi 12 mesi in modo dinamico rispetto alla data selezionata.
 
-19. 7 Day Moving Average
-Traduzione Nome Misura: Media Mobile 7 Giorni
+✅ 19. 7 Day Moving Average
+Nome Misura: Media Mobile 7 Giorni
 Espressione DAX:
-
 7 Day Moving Average = AVERAGEX(FILTER(ALL('CalendarTable'), 'CalendarTable'[Date] > (MAX('CalendarTable'[Date]) - 7) && 'CalendarTable'[Date] <= MAX('CalendarTable'[Date])), [Profit])
-Descrizione: Calcola la media mobile del profitto su 7 giorni.
+👉Descrizione: Calcola la media mobile del profitto su 7 giorni.
 
-20. Country Rank
-Traduzione Nome Misura: Classifica Paesi
+✅ 20. Country Rank
+Nome Misura: Classifica Paesi
 Espressione DAX:
 Country Rank = RANKX(ALL('GeographyTable'[Country]), [Total Sales],, SKIP)
-Descrizione: Calcola la posizione di ciascun paese in base alle vendite totali, ignorando i filtri sul paese.
+👉Descrizione: Calcola la posizione di ciascun paese in base alle vendite totali, ignorando i filtri sul paese.
 
-21. Filtro su una singola colonna (Condizione "AND")
-Descrizione: calcolare le vendite totali quando i prezzi variano da 100 a 1000 dollari 
+✅ 21. Filtro su una singola colonna (Condizione "AND")
+👉Descrizione: calcolare le vendite totali quando i prezzi variano da 100 a 1000 dollari 
 Dax: Total Sales 100-1000 = CALCULATE([Total Sales], Sales[Price] >= 100, Sales[Price] <= 1000)
 
 
-22. Filtro su una singola colonna (Condizione "OR")
+✅ 22. Filtro su una singola colonna (Condizione "OR")
 Descrizione: calcolare le vendite totali quando per i prodotti con il colore rosso o blu
 Dax: Total Sales Red or Blu = CALCULATE([Total Sales], Product[Color] = "Red" || Product[Color] = "Blue")
 
-23. Filtro su più colonne
-Descrizione: calcolare le vendite totali in cui la quantità × il prezzo è ≥ 1.000 dollari
+✅ 23. Filtro su più colonne
+👉Descrizione: calcolare le vendite totali in cui la quantità × il prezzo è ≥ 1.000 dollari
 Dax: Total Sales > 1000 = CALCULATE(
  [Total Sales], 
  FILTER(ALL(Sales[Quantity], Sales[Price]), 
  Sales[Quantity] * Sales[Price] >= 1000)
 )
 
-24. Filtro su più colonne con selezione effettuata con slicers
-Descrizione: calcolare le vendite totali in cui prezzo è tra 500 e 3.000 dollari (Il filtro sul prezzo è dinamico a video)
+✅ 24. Filtro su più colonne con selezione effettuata con slicers
+👉Descrizione: calcolare le vendite totali in cui prezzo è tra 500 e 3.000 dollari (Il filtro sul prezzo è dinamico a video)
 Dax: Total Sales > 500 e < 3000 = CALCULATE(
  [Total Sales], 
  KEEPFILTERS(
@@ -153,21 +151,21 @@ Dax: Total Sales > 500 e < 3000 = CALCULATE(
  )
 )
 
-25. Calcolo Vendite Ultimi 7 giorni
+✅ 25. Calcolo Vendite Ultimi 7 giorni
 Descrizione: calcolare le vendite degli ultimi 7 giorni (rolling)
 Dax: Last 7 days Sales = CALCULATE ( [Total Revenue], DATEADD(Calendar_Date[Date], -7, Day) )
 /*Alternativa*/
 Last 7 days Sales = CALCULATE ( [Total Revenue], DATESINPERIOD(dim_date[date],  MAX(dim_date èdate]), -7, Day) ) 
 
 
-26. Calcola le vendite dell'anno corrente
+✅ 26. Calcola le vendite dell'anno corrente
 Sales AC = CALCULATE([Sales], ALL('DateTable'), 'DateTable'[Year] = MAX('DateTable'[Year]))
 
 27. Calcola le vendite dell'anno precedente
 Sales AP = CALCULATE([Sales], SAMEPERIODLASTYEAR('DateTable'[Date]))
 
-28. Calcolo del tasso di crescita
-Descrizione: Come visualizzare l'evoluzione tra l'anno N e l'anno N-1 per individuare la progressione (o regressione) delle vendite
+✅ 28. Calcolo del tasso di crescita
+👉Descrizione: Come visualizzare l'evoluzione tra l'anno N e l'anno N-1 per individuare la progressione (o regressione) delle vendite
 Utilizzo: andare su etichette dati e sostituire il valore predefinito dell'etichetta con questa metrica
 Growth vs PM = 
 VAR growth = DIVIDE ( [Sales], [Sales AP] ) -1
@@ -177,7 +175,7 @@ RETURN
         growth <=0, FORMAT (growth, "0%▼"),
         growth > 0, FORMAT( growth, "+0%▲"))
 
-29. Calcolo Vendite dell'anno fino alla data odierna
+✅ 29. Calcolo Vendite dell'anno fino alla data odierna
 Sales YTD Today = 
 VAR _y = MAX('Calendar'[Year])
 VAR _m = MONTH(TODAY())
@@ -192,19 +190,19 @@ VAR _result =
 RETURN _result
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
-30. Fatturato = SUMX(Vendite,Vendite[Imponibile])
-31. Fatturato 2023 = CALCULATE([Fatturato],FILTER(Calendario,Calendario[Anno] = 2023))
-32. Fatturato RT = CALCULATE([Fatturato], FILTER(ALLSELECTED(Calendario),Calendario[Date] <= MAX(Calendario[Date])))
-33. Fatturato RT YTD = CALCULATE([Fatturato],DATESYTD(Calendario[Date]))
-34. Fatturato RT MTD = CALCULATE([Fatturato],DATESMTD(Calendario[Date]))
-35. Fatturato RT SPLY = CALCULATE([Fatturato],SAMEPERIODLASTYEAR(Calendario[Date]))
-36. Fatturato RT -1 = CALCULATE([Fatturato],DATEADD(Calendario[Date],-1,MONTH))
-37. Fatturato PP-M = CALCULATE([Fatturato],PARALLELPERIOD(Calendario[Date],-1,MONTH))
-38. 
-39.
+✅ 30. Fatturato = SUMX(Vendite,Vendite[Imponibile])
+✅ 31. Fatturato 2023 = CALCULATE([Fatturato],FILTER(Calendario,Calendario[Anno] = 2023))
+✅ 32. Fatturato RT = CALCULATE([Fatturato], FILTER(ALLSELECTED(Calendario),Calendario[Date] <= MAX(Calendario[Date])))
+✅ 33. Fatturato RT YTD = CALCULATE([Fatturato],DATESYTD(Calendario[Date]))
+✅ 34. Fatturato RT MTD = CALCULATE([Fatturato],DATESMTD(Calendario[Date]))
+✅ 35. Fatturato RT SPLY = CALCULATE([Fatturato],SAMEPERIODLASTYEAR(Calendario[Date]))
+✅ 36. Fatturato RT -1 = CALCULATE([Fatturato],DATEADD(Calendario[Date],-1,MONTH))
+✅ 37. Fatturato PP-M = CALCULATE([Fatturato],PARALLELPERIOD(Calendario[Date],-1,MONTH))
+✅ 38. 
+✅ 39.
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
-40. Rimuovere il valore YTD per le date future in Power BI
+✅ 40. Rimuovere il valore YTD per le date future in Power BI
 1) Nuova colonna nella tabella delle date che confronta la data per gli ultimi dati nella tabella dei fatti con la colonna delle date nella tabella delle date. Adattare l'espressione di misura YTD per filtrare sulla colonna di controllo aggiunta.
 2) Con l'espressione di misura YTD standard, il valore YTD continua per tutti i periodi. Con l'espressione YTD filtrata adattata, il valore YTD per i periodi futuri viene rimosso dalla visualizzazione.
 
@@ -212,12 +210,12 @@ Sales Date Check = Dates[Date] <= EOMONTH ( MAX ('Sales Fact [Order Date] ) , 0 
 Sales YTD = CALCULATE ( TOTALYTD ( [Sales], Dates[Date], Dates[Sales Date Check] )
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 
-41. Visualizza Valore e Percentuae su grafici
+✅ 41. Visualizza Valore e Percentuae su grafici
 Valore_% = DIVIDE([Fatturato],CALCULATE([Fatturato],REMOVEFILTERS(Calendario[Anno])))
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 
-42. Crea tabella con anni Actual / Forecast 
+✅ 42. Crea tabella con anni Actual / Forecast 
 dim_years = ADDCOLUMNS
             ( 
                GENERATESERIES( 
@@ -227,7 +225,7 @@ dim_years = ADDCOLUMNS
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 
-Spedito % VS AP =
+✅ Spedito % VS AP =
 VAR Diviso =
 DIVIDE(
     ([Spedito_€]- [Spedito_€ AP]),
@@ -245,7 +243,7 @@ DivisoSuper
 RETURN Risultato
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
-CONSOLIDA 3 LISTE IN UNA SOLA TABELLA
+✅ CONSOLIDA 3 LISTE IN UNA SOLA TABELLA
 GO TO MODELING TAB > CREATE NEW TABLE > WRITE BELOW DAX
 Unique List =
  DISTINCT(
@@ -254,3 +252,37 @@ Unique List =
    SELECTCOLUMNS (Sheetl, "Players", Sheetl[Australia]), 
    SELECTCOLUMNS (Sheetl, "Players", Sheetl[Europa])
 ))
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+✅ 1. Vendite YTD per una specifica categoria di prodotti
+Scenario: Mostrare le vendite YTD ma solo per la categoria "Elettronica".
+DAX:  
+CALCULATE(TOTALYTD([Total Sales], 'Date'[Date]), 'Product'[Category] = "Electronics")  
+👉Combina l'intelligenza temporale con il filtraggio a livello di riga.
+
+✅ 2. Differenza di vendite tra il mese corrente e quello precedente
+Scenario: Calcolare l'aumento o la diminuzione delle vendite.
+DAX:  
+[Total Sales] - CALCULATE([Total Sales], PREVIOUSMONTH('Date'[Date]))  
+👉Contribuisce all'analisi delle tendenze e delle prestazioni.
+
+✅ 3. Mostra solo i clienti con vendite > 50.000
+Scenario: Filtrare le immagini o i KPI in base ai clienti di alto valore. 
+DAX (Measure):  
+CALCULATE([Total Sales], FILTER('Customer', [Total Sales] > 50000))  
+👉Dimostra l'uso di FILTRO all'interno di CALCULATE.
+
+✅ 4. Totale corrente per regione
+Scenario: Tracciare le vendite cumulative per regione nel tempo.  
+DAX:  
+CALCULATE([Total Sales], FILTER(ALLSELECTED('Date'[Date]), 'Date'[Date] <= MAX('Date'[Date])))  
+👉Comprensione della transizione di contesto e di ALLSELECTED.
+
+✅ 5. Mostrare la percentuale di contributo di ciascun prodotto alle vendite totali
+Scenario: Mostrare la quota di ciascun prodotto sul totale.
+DAX:  
+DIVIDE([Total Sales], CALCULATE([Total Sales], ALL('Product')))  
+👉Classico uso di ALL per rimuovere il contesto del filtro.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
