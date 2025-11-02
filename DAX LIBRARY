@@ -286,3 +286,22 @@ DIVIDE([Total Sales], CALCULATE([Total Sales], ALL('Product')))
 👉Classico uso di ALL per rimuovere il contesto del filtro.
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
+
+CALENDARIO TMDL
+
+CalendarDax = ADDCOLUMNS (
+	CALENDARAUTO (),
+	"Anno", YEAR([Date]),
+	"MonthNo", Month([Date]),
+	"Mese", format([Date]), "mmmm"),
+	"Month(M)", LEFT(FORMAT([Date]),"mmm",1) & rept(unichar(8203),month([Date])),
+	"QuarterNo", quarter([Date]),
+	"Quarter", format([Date],"QQ"),
+	"YearMonth", format([Date], "YYYY-MM"),
+	"WeekDayNo", weekday([Date],2),
+	"WeekDay", format([Date], "ddd"),
+	"Giorno", day([Date])
+	)
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
