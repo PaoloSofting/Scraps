@@ -287,24 +287,6 @@ DIVIDE([Total Sales], CALCULATE([Total Sales], ALL('Product')))
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 
-CALENDARIO TMDL
-
-CalendarDax = ADDCOLUMNS (
-	CALENDARAUTO (),
-	"Anno", YEAR([Date]),
-	"MonthNo", Month([Date]),
-	"Mese", format([Date]), "mmmm"),
-	"Month(M)", LEFT(FORMAT([Date]),"mmm",1) & rept(unichar(8203),month([Date])),
-	"QuarterNo", quarter([Date]),
-	"Quarter", format([Date],"QQ"),
-	"YearMonth", format([Date], "YYYY-MM"),
-	"WeekDayNo", weekday([Date],2),
-	"WeekDay", format([Date], "ddd"),
-	"Giorno", day([Date])
-	)
-
----------------------------------------------------------------------------------------------------------------------------------------------------
-
 CONFRONTO CATEGORIE SENZA RELAZIONI
 
 Categoria1 = DISTINCT(Vendite[Categoria])
@@ -320,6 +302,7 @@ CALCULATE(
  FILTER(ALL(Vendite), Vendite[Categoria] = Cat1)
 )
 -- (replica misura2 in modo duale)
+
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -359,32 +342,50 @@ ADDCOLUMNS (
 )
 
 ************************************************************************************
+DAX 
 
-CalendarTable = 
-var __max_date = MAX(Vendite[DataVendita])
-var __min_date = MIN(Vendite[DataVendita])
-var __calendar_date = CALENDAR(__min_date,__max_date)
-var __calendar = 
-ADDCOLUMNS( 
-__calendar_date,
-"Year", YEAR([Date]),
-"Month", MONTH([Date]),
-"MonthName", FORMAT([Date], "MMM"),
-"Week", WEEKNUM([Date],2), // week begins on Monday 
-"DayInMonth", DAY([Date]),
-"WeekDay", WEEKDAY([Date], 2), // Monday 1 Sunday 7
-"Weekend_flag", IF(WEEKDAY([Date], 2) >5, 1,0),
-"WeekDay_DDD", FORMAT([Date], "DDD")
-)
-return
-__calendar
+Calendario = 
+	var __min_date = MIN(Vendite[DataVendita])
+	var __max_date = MAX(Vendite[DataVendita])
+	var __calendar_date = CALENDAR(__min_date,__max_date)
+	var __calendar = 
+	ADDCOLUMNS( 
+	__calendar_date,
+	"Year", YEAR([Date]),
+	"Month", MONTH([Date]),
+	"MonthName", FORMAT([Date], "MMM"),
+	"Week", WEEKNUM([Date],2), // week begins on Monday 
+	"DayInMonth", DAY([Date]),
+	"WeekDay", WEEKDAY([Date], 2), // Monday 1 Sunday 7
+	"Weekend_flag", IF(WEEKDAY([Date], 2) >5, 1,0),
+	"WeekDay_DDD", FORMAT([Date], "DDD")
+	)
+	return
+	__calendar
 
 ************************************************************************************
+---------------------------------------------------------------------------------------------------------------------------------------------------
+DAX AUTOCALENDAR TMDL
 
+Calendario = 
+	ADDCOLUMNS (
+	CALENDARAUTO (),
+	"Anno", YEAR([Date]),
+	"MonthNo", Month([Date]),
+	"Mese", format([Date]), "mmmm"),
+	"Month(M)", LEFT(FORMAT([Date]),"mmm",1) & rept(unichar(8203),month([Date])),
+	"QuarterNo", quarter([Date]),
+	"Quarter", format([Date],"QQ"),
+	"YearMonth", format([Date], "YYYY-MM"),
+	"WeekDayNo", weekday([Date],2),
+	"WeekDay", format([Date], "ddd"),
+	"Giorno", day([Date])
+	)
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
+M
 
-// Generazione Calendario a partire da una Data di una tabella Fact con codice M, tabella persistente nel modello dati
+// Generazione Calendario a partire da una Data di una tabella Fact, tabella persistente nel modello dati
 // Paolo Falcone, Softing Consulting, Nov 2024 - Rev 2
 
 let
@@ -430,6 +431,6 @@ let
 in
     vDataISO
 
-
 ---------------------------------------------------------------------------------------------------------------------------------------------------
+
 
